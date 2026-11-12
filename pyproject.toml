@@ -1,0 +1,39 @@
+[project]
+name = "buchindex"
+version = "0.1.0"
+description = "Indexiert PDF- und EPUB-Bücher in Meilisearch"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "httpx>=0.28.1",
+    "joblib>=1.6.0",
+    "meilisearch>=0.43.0",
+    "ocrmypdf>=17.14.1",
+    "pymupdf>=2.1",
+    "pymupdf4llm>=2.1",
+    "python-dotenv>=1.2.4",
+    "typer>=0.29.1",
+]
+
+[project.scripts]
+buchindex = "buchindex.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: braucht eine laufende Meilisearch-Instanz (MEILI_URL)"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
