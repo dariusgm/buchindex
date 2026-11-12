@@ -276,11 +276,16 @@ Server. Im Image sind alle Systemprogramme enthalten. Auf dem Server selbst
 braucht es nur Docker mit dem Compose-Plugin und `openssl` (für den Key;
 `apt install openssl`).
 
-1. Bücher auf den Server kopieren, z. B.
-   `rsync -a --delete ~/Dokumente/ server:/srv/buecher/`. `-a` erhält die
+Die Einrichtung kann ein Agent auf dem Server übernehmen: Der Prompt dafür
+steht in [`deploy/server-prompt.md`](deploy/server-prompt.md) (Ordner anlegen,
+Repository klonen oder aktualisieren, `.env` mit Key erzeugen, Image bauen,
+prüfen). Von Hand sind es diese Schritte:
+
+1. Ordner anlegen (`mkdir -p ~/books`) und Bücher auf den Server kopieren, z. B.
+   `rsync -a --delete ~/Dokumente/ server:books/`. `-a` erhält die
    Änderungszeiten, an denen buchindex Änderungen erkennt.
-2. `.env` neben `compose.yaml` anlegen (Vorlage: `.env.example`) und
-   `BOOKS_DIR` auf den Ordner auf dem Server setzen. Für Embeddings kommen
+2. `.env` neben `compose.yaml` anlegen (Vorlage: `.env.example`). `BOOKS_DIR`
+   steht dort auf `${HOME}/books`; liegt der Ordner woanders, anpassen. Für Embeddings kommen
    `EMBEDDER_*` und `MEILI_ALLOWED_IP_NETWORKS` dazu. Den Master-Key für
    Meilisearch direkt auf dem Server erzeugen und eintragen:
 
